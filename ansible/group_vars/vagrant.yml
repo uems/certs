@@ -1,4 +1,4 @@
 ---
 
-app_path: /opt/certificate/
+app_path: /opt/certs/
 port: 7002

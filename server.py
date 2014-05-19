@@ -3,7 +3,7 @@
 import sys
 import traceback
 
-from lib.certificate import Certificate
+from lib.certs import Certificate
 
 from flask import Flask, jsonify, request, abort
 app = Flask(__name__)
@@ -14,21 +14,19 @@ def certificate():
 
 def print_with(*klasses):
   try:
-    xid       = request.form['xid']
-    name      = request.form['name']
-    cert_type = request.form['type']
-    language  = request.form.get('language')
-    speeches  = request.form.get('speeches')
-
-    messages = [];
+    xid        = request.form['xid']
+    name       = request.form['name']
+    cert_type  = request.form['type']
+    language   = request.form.get('language')
+    activities = request.form.get('activities')
 
     for klass in klasses:
-      obj = klass(xid, name, cert_type, language, speeches)
+      obj = klass(xid, name, cert_type, language, activities)
       object_type = klass.__name__.split('.')[-1]
-      messages.append("{} has been printed".format(object_type));
-      messages.append("{}".format(obj.url));
+      ret = {}
+      ret.update({"url": obj.url});
 
-    return jsonify({ 'messages' : messages })
+    return jsonify(ret)
 
   except Exception, e:
     response = jsonify({ 'error': e.args, 'stack': traceback.format_exc() })
@@ -39,7 +37,7 @@ def print_with(*klasses):
 def index():
   return jsonify({
     'links': [
-      { 'rel': 'certificate',    'href': '/certificate/',    'method': 'POST' },
+      { 'rel': 'certs',    'href': '/certs/',    'method': 'POST' },
     ]
   })
 

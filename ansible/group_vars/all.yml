@@ -1,5 +1,5 @@
-app_path: /opt/certificate
+app_path: /opt/certs
 port: 7002
 mode: debug
-git_repo: https://github.com/uems/certificate.git
+git_repo: https://github.com/uems/certs.git
 git_branch: master
