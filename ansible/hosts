@@ -1,0 +1,5 @@
+[production]
+greve_host ansible_ssh_user=root ansible_ssh_host=ggggreve.softwarelivre.orggg
+
+[vagrant]
+192.168.33.72 user=vagrant

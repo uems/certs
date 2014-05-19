@@ -1,0 +1,22 @@
+---
+
+#- name: Pull latest version from git repository
+#  git: repo={{ git_repo }}
+#       dest={{ app_path }}
+#       version={{ git_branch }}
+#       update=yes
+#  tags: git
+
+- name: creates the certificate service
+  tags: config
+  template: src=certificate_service.j2
+            dest=/etc/init.d/certificate_service
+            mode=0755
+  notify:
+    - restart certificate_service
+
+- name: ensures certificate service is enabled
+  tags: certificate
+  service: name=certificate_service
+           enabled=yes
+           state=restarted

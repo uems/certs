@@ -1,0 +1,4 @@
+.*.sw?
+.vagrant
+*.pyc
+config.py

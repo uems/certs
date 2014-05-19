@@ -1,0 +1,12 @@
+---
+
+- hosts: greve_host
+  sudo: True
+  roles:
+    - accelerate
+
+- hosts: greve_host
+  sudo: True
+  accelerate: True
+  roles:
+    - certificate

@@ -1,0 +1,12 @@
+---
+
+- name: ensure we have pip and git installed
+  apt: pkg=python-pip,git
+
+- name: ensure we have python dependencies
+  pip: name={{ item }}
+       state=present
+  with_items:
+    - Flask
+    - requests
+    - hashids

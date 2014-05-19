@@ -1,0 +1,5 @@
+---
+
+- name: restart certificate_service
+  service: name=certificate_service
+           state=restarted

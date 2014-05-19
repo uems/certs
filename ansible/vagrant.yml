@@ -1,0 +1,12 @@
+---
+
+- hosts: vagrant
+  sudo: True
+  roles:
+    - accelerate
+
+- hosts: vagrant
+  sudo: True
+  accelerate: True
+  roles:
+    - certificate
