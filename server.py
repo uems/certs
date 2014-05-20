@@ -23,7 +23,7 @@ def print_with(*klasses):
     activities = request.form.get('activities')
 
     for klass in klasses:
-      obj = klass(xid, name, cert_type, language, activities)
+      obj = klass(xid, name, cert_type, language, activities, request.url_root)
       object_type = klass.__name__.split('.')[-1]
       ret = {}
       if obj.url is not None:

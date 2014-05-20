@@ -7,10 +7,11 @@ import hashlib
 import codecs
 import json
 import config
-import os.path;
+import os.path
+import urlparse
 
 class Certificate:
-  def __init__(self, xid, name, cert_type, language=None, activities=None):
+  def __init__(self, xid, name, cert_type, language=None, activities=None, url_root=None):
     self.url = None
     self.error = None
     
@@ -21,7 +22,8 @@ class Certificate:
 
     hash_xid = self.generate_hash(xid)
     
-    url = "http://certs.softwarelivre.org/" + hash_xid + ".pdf"
+    parsed = urlparse.urlparse(url_root)
+    url = parsed.scheme + "://" + parsed.hostname + "/" + hash_xid + ".pdf"
       
     filename = "certificate_" + cert_type + str_language
       
@@ -51,9 +53,9 @@ class Certificate:
       self.error = "pdf not generated"
 
   def _svg_to_pdf(self, in_file, out_file):
-    inkscape = '/usr/bin/inkscape';
-    p = Popen([inkscape, '-z', '-f', in_file, '-A', out_file], stdin=PIPE, stdout=PIPE);
-    p.wait();
+    inkscape = '/usr/bin/inkscape'
+    p = Popen([inkscape, '-z', '-f', in_file, '-A', out_file], stdin=PIPE, stdout=PIPE)
+    p.wait()
     return out_file
 
   def generate_hash(self, xid):
