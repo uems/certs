@@ -1,12 +1,12 @@
 <VirtualHost *:{{ webport }}>
   ServerAdmin webmaster@localhost
-  ServerName  {{ webhost }}
+  ServerName  certs.{{ webhost }}
 
-  DocumentRoot /var/www
+  DocumentRoot {{ output_path }}
   ErrorLog ${APACHE_LOG_DIR}/error.log
   LogLevel warn
 
-  <Directory /var/www/>
+  <Directory {{ output_path }}>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
     Order allow,deny

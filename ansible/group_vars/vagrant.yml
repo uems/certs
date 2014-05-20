@@ -1,10 +1,10 @@
 ---
 
-webhost: 'localhost'
-webport: '80'
+webhost: 192.168.33.72.xip.io
+webport: 80
 port: 7002
 api_user: api_user
 api_pass: api_pass
-output_path: /var/www/certs.fisl15.softwarelivre.org
+output_path: /var/www/certs.{{ webhost }}
 app_path: /opt/certs
 svg_path: /opt/certs/svg
