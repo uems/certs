@@ -6,5 +6,3 @@
 - name: Install python-keyczar so that we can have faster connections
   apt: pkg=python-keyczar
 
-- name: Install inkscape
-  apt: pkg=inkscape

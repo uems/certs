@@ -1,4 +1,10 @@
 ---
 
-app_path: /opt/certs/
+webhost: 'localhost'
+webport: '80'
 port: 7002
+api_user: api_user
+api_pass: api_pass
+output_path: /var/www/certs.fisl15.softwarelivre.org
+app_path: /opt/certs
+svg_path: /opt/certs/svg

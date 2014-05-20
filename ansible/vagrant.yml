@@ -10,3 +10,4 @@
   accelerate: True
   roles:
     - certificate
+    - inkscape

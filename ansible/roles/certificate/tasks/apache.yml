@@ -1,0 +1,22 @@
+---
+
+- apt: update_cache=yes
+       cache_valid_time=3600
+
+- name: Install apache
+  apt: pkg=apache2
+       state=installed
+
+- name: Create an apache site named certs
+  template: src=apache_site_certs.j2
+            dest=/etc/apache2/sites-available/certs
+
+- name: Enable mod-rewrite
+  command: a2enmod rewrite
+
+- name: Disable apache site default
+  command: a2dissite default
+
+- name: Enable apache site certs
+  command: a2ensite certs
+  notify: restart apache2

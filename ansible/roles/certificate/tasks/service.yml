@@ -7,6 +7,18 @@
 #       update=yes
 #  tags: git
 
+- name: ensures there is an output directory
+  file: path={{ output_path }}
+        mode=0755
+        owner=root
+        state=directory
+
+- name: configures the service itself
+  tags: config
+  template: src=config.py.j2
+            dest={{ app_path }}/config.py
+            mode=0755
+
 - name: creates the certificate service
   tags: config
   template: src=certificate_service.j2
