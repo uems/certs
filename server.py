@@ -21,6 +21,7 @@ def print_with(*klasses):
     cert_type  = request.form['type']
     language   = request.form.get('language')
     activities = request.form.get('activities')
+    print >> sys.stderr, request.form;
 
     for klass in klasses:
       obj = klass(xid, name, cert_type, language, activities, request.url_root)
@@ -34,6 +35,7 @@ def print_with(*klasses):
     return jsonify(ret)
 
   except Exception, e:
+    traceback.print_exc()
     response = jsonify({ 'error': e.args, 'stack': traceback.format_exc() })
     response.status_code = 500
     return response
