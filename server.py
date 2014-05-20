@@ -4,11 +4,13 @@ import sys
 import traceback
 
 from lib.certs import Certificate
+from lib.auth import requires_auth
 
 from flask import Flask, jsonify, request, abort
 app = Flask(__name__)
 
 @app.route('/certificate', methods=['POST'])
+@requires_auth
 def certificate():
   return print_with(Certificate)
 
@@ -24,7 +26,10 @@ def print_with(*klasses):
       obj = klass(xid, name, cert_type, language, activities)
       object_type = klass.__name__.split('.')[-1]
       ret = {}
-      ret.update({"url": obj.url});
+      if obj.url is not None:
+        ret.update({"url": obj.url});
+      else:
+        ret.update({"error": obj.error})
 
     return jsonify(ret)
 
