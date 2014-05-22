@@ -8,3 +8,5 @@ api_pass: api_pass
 output_path: /var/www/certs.{{ webhost }}
 app_path: /opt/certs
 svg_path: /opt/certs/svg
+authorization_jwt: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZSwiaWF0IjoxNDAwMDcyMTg4fQ.UVPYiY8AtIlASXtSNPrEaiHU2Ehu2wDKktI137iQTqc
+endpoint: http://192.168.33.20:2000

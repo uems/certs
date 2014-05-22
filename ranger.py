@@ -3,10 +3,11 @@
 import sys
 import requests
 import codecs
+import config
 
 sys.stdout = codecs.open('/dev/stdout', 'w', 'utf8')
-endpoint = "http://192.168.33.20:2000"
-headers = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZSwiaWF0IjoxNDAwMDcyMTg4fQ.UVPYiY8AtIlASXtSNPrEaiHU2Ehu2wDKktI137iQTqc'}
+endpoint = config.endpoint
+headers = {'Authorization': config.authorization_jwt}
 
 class RangerException(BaseException): pass
 class PersonNotFound(RangerException): pass
@@ -16,18 +17,24 @@ class Process:
     self.url = "{}/people/{}-{}".format(endpoint, source, id)
 
     self.locate_person()
-    self.reset_login_hash()
-    self.call_for_certificate()
+    self.execute()
+    
+  def execute(self):
+    status_code = self.reset_login_hash()
+    if status_code == 200:
+      self.call_for_certificate()
 
   def reset_login_hash(self):
     print 'hitting post reset-login-hash'
     response = requests.post("{}/reset-login-hash".format(self.url), headers=headers)
     print response.status_code
+    return response.status_code
 
   def call_for_certificate(self):
     print 'hitting post call-for-certificate'
     response = requests.post("{}/call-for-certificate".format(self.url), headers=headers)
     print response.status_code
+    return response.status_code
 
   def locate_person(self):
     print "hitting GET", self.url
