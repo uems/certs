@@ -6,7 +6,7 @@ import codecs
 import config
 
 sys.stdout = codecs.open('/dev/stdout', 'w', 'utf8')
-endpoint = config.endpoint
+endpoint = config.gateway
 headers = {'Authorization': config.authorization_jwt}
 
 class RangerException(BaseException): pass
