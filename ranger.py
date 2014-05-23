@@ -28,7 +28,7 @@ class Process:
     response = requests.post(url, headers=headers)
 
     if response.status_code >= 400:
-        print response.status_code, response.body
+        print response.status_code, response.text
         raise ResetLoginHashFailed();
     print "OK"
 
@@ -38,7 +38,7 @@ class Process:
     response = requests.post(url, headers=headers)
 
     if response.status_code >= 400:
-        print response.status_code, response.body
+        print response.status_code, response.text
         raise CallForCertificateFailed();
     print "OK"
 
