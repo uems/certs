@@ -10,9 +10,9 @@ endpoint = config.gateway
 headers = {'Authorization': config.authorization_jwt}
 
 class RangerException(BaseException): pass
-class ResetLoginHashFailed(BaseException): pass
-class CallForCertificateFailed(BaseException): pass
 class PersonNotFound(RangerException): pass
+class ResetLoginHashFailed(RangerException): pass
+class CallForCertificateFailed(RangerException): pass
 
 class Process:
   def __init__(self, id, source):
