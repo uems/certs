@@ -10,6 +10,8 @@ endpoint = config.endpoint
 headers = {'Authorization': config.authorization_jwt}
 
 class RangerException(BaseException): pass
+class ResetLoginHashFailed(BaseException): pass
+class CallForCertificateFailed(BaseException): pass
 class PersonNotFound(RangerException): pass
 
 class Process:
@@ -17,34 +19,38 @@ class Process:
     self.url = "{}/people/{}-{}".format(endpoint, source, id)
 
     self.locate_person()
-    self.execute()
-    
-  def execute(self):
-    status_code = self.reset_login_hash()
-    if status_code == 200:
-      self.call_for_certificate()
+    self.reset_login_hash()
+    self.call_for_certificate()
 
   def reset_login_hash(self):
-    print 'hitting post reset-login-hash'
-    response = requests.post("{}/reset-login-hash".format(self.url), headers=headers)
-    print response.status_code
-    return response.status_code
+    url = "{}/reset-login-hash".format(self.url)
+    print 'hitting POST', url,
+    response = requests.post(url, headers=headers)
+
+    if response.status_code >= 400:
+        print response.status_code, response.body
+        raise ResetLoginHashFailed();
+    print "OK"
 
   def call_for_certificate(self):
-    print 'hitting post call-for-certificate'
-    response = requests.post("{}/call-for-certificate".format(self.url), headers=headers)
-    print response.status_code
-    return response.status_code
+    url = "{}/call-for-certificate".format(self.url)
+    print 'hitting POST', url,
+    response = requests.post(url, headers=headers)
+
+    if response.status_code >= 400:
+        print response.status_code, response.body
+        raise CallForCertificateFailed();
+    print "OK"
 
   def locate_person(self):
-    print "hitting GET", self.url
+    print "hitting GET", self.url,
     response = requests.get(self.url, headers=headers)
 
-    print response.status_code
     if response.status_code >= 400:
-      print "PERSON NOT FOUND! skipping"
+      print response.status_code, "PERSON NOT FOUND! skipping"
       raise PersonNotFound()
     self.person = response.json()
+    print "OK"
 
 if __name__ == "__main__":
   if len(sys.argv) < 4:

@@ -1,12 +1,5 @@
 ---
 
-#- name: Pull latest version from git repository
-#  git: repo={{ git_repo }}
-#       dest={{ app_path }}
-#       version={{ git_branch }}
-#       update=yes
-#  tags: git
-
 - name: ensures there is an output directory
   file: path={{ output_path }}
         mode=0755
