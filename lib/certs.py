@@ -70,19 +70,19 @@ class Certificate:
     else:
       plural_mode = False
 
-    if language == "BR":
+    if language == "pt":
       if plural_mode:
         str_activities = "as seguintes palestras: "
       else:
         str_activities = "a seguinte palestra: "
 
-    if language == "US":
+    if language == "en":
       if plural_mode:
         str_activities = "the following talks: "
       else:
         str_activities = "the following talk: "
 
-    if language == "ES":
+    if language == "es":
       if plural_mode:
         str_activities = "las siguientes charlas: "
       else:
